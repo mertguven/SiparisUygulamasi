@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="projeModelStoreContainer" CdmEntityContainer="projeEntities">
+    <EntitySetMapping Name="kullanıcılar">
+      <EntityTypeMapping TypeName="projeModel.kullanıcılar">
+        <MappingFragment StoreEntitySet="kullanıcılar">
+          <ScalarProperty Name="cvv" ColumnName="cvv" />
+          <ScalarProperty Name="yıl" ColumnName="yıl" />
+          <ScalarProperty Name="ay" ColumnName="ay" />
+          <ScalarProperty Name="kartNo" ColumnName="kartNo" />
+          <ScalarProperty Name="adres" ColumnName="adres" />
+          <ScalarProperty Name="sifre" ColumnName="sifre" />
+          <ScalarProperty Name="ad" ColumnName="ad" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="urunler">
+      <EntityTypeMapping TypeName="projeModel.urunler">
+        <MappingFragment StoreEntitySet="urunler">
+          <ScalarProperty Name="SiparisAdres" ColumnName="SiparisAdres" />
+          <ScalarProperty Name="Aksesuar" ColumnName="Aksesuar" />
+          <ScalarProperty Name="Oyuncak" ColumnName="Oyuncak" />
+          <ScalarProperty Name="Mama" ColumnName="Mama" />
+          <ScalarProperty Name="KullanıcıId" ColumnName="KullanıcıId" />
+          <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

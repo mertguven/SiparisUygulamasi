@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="projeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="projeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="kullanıcılar" EntityType="projeModel.kullanıcılar" />
+    <EntitySet Name="urunler" EntityType="projeModel.urunler" />
+    <AssociationSet Name="FK_urunler_kullanıcılar" Association="projeModel.FK_urunler_kullanıcılar">
+      <End Role="kullanıcılar" EntitySet="kullanıcılar" />
+      <End Role="urunler" EntitySet="urunler" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="kullanıcılar">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="kartNo" Type="Int64" />
+    <Property Name="ay" Type="Int32" />
+    <Property Name="yıl" Type="Int32" />
+    <Property Name="cvv" Type="Int32" />
+    <NavigationProperty Name="urunler" Relationship="projeModel.FK_urunler_kullanıcılar" FromRole="kullanıcılar" ToRole="urunler" />
+  </EntityType>
+  <EntityType Name="urunler">
+    <Key>
+      <PropertyRef Name="UrunId" />
+    </Key>
+    <Property Name="UrunId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KullanıcıId" Type="Int32" />
+    <Property Name="Mama" Type="Int32" />
+    <Property Name="Oyuncak" Type="Int32" />
+    <Property Name="Aksesuar" Type="Int32" />
+    <Property Name="SiparisAdres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="kullanıcılar" Relationship="projeModel.FK_urunler_kullanıcılar" FromRole="urunler" ToRole="kullanıcılar" />
+  </EntityType>
+  <Association Name="FK_urunler_kullanıcılar">
+    <End Type="projeModel.kullanıcılar" Role="kullanıcılar" Multiplicity="0..1" />
+    <End Type="projeModel.urunler" Role="urunler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kullanıcılar">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="urunler">
+        <PropertyRef Name="KullanıcıId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

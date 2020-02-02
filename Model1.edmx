@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="projeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="kullanıcılar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad" Type="varchar" MaxLength="50" />
+          <Property Name="sifre" Type="varchar" MaxLength="50" />
+          <Property Name="adres" Type="nvarchar(max)" />
+          <Property Name="kartNo" Type="bigint" />
+          <Property Name="ay" Type="int" />
+          <Property Name="yıl" Type="int" />
+          <Property Name="cvv" Type="int" />
+        </EntityType>
+        <EntityType Name="urunler">
+          <Key>
+            <PropertyRef Name="UrunId" />
+          </Key>
+          <Property Name="UrunId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullanıcıId" Type="int" />
+          <Property Name="Mama" Type="int" />
+          <Property Name="Oyuncak" Type="int" />
+          <Property Name="Aksesuar" Type="int" />
+          <Property Name="SiparisAdres" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_urunler_kullanıcılar">
+          <End Role="kullanıcılar" Type="Self.kullanıcılar" Multiplicity="0..1" />
+          <End Role="urunler" Type="Self.urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanıcılar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="urunler">
+              <PropertyRef Name="KullanıcıId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="projeModelStoreContainer">
+          <EntitySet Name="kullanıcılar" EntityType="Self.kullanıcılar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="urunler" EntityType="Self.urunler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_urunler_kullanıcılar" Association="Self.FK_urunler_kullanıcılar">
+            <End Role="kullanıcılar" EntitySet="kullanıcılar" />
+            <End Role="urunler" EntitySet="urunler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="projeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="projeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="kullanıcılar" EntityType="projeModel.kullanıcılar" />
+          <EntitySet Name="urunler" EntityType="projeModel.urunler" />
+          <AssociationSet Name="FK_urunler_kullanıcılar" Association="projeModel.FK_urunler_kullanıcılar">
+            <End Role="kullanıcılar" EntitySet="kullanıcılar" />
+            <End Role="urunler" EntitySet="urunler" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="kullanıcılar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="kartNo" Type="Int64" />
+          <Property Name="ay" Type="Int32" />
+          <Property Name="yıl" Type="Int32" />
+          <Property Name="cvv" Type="Int32" />
+          <NavigationProperty Name="urunler" Relationship="projeModel.FK_urunler_kullanıcılar" FromRole="kullanıcılar" ToRole="urunler" />
+        </EntityType>
+        <EntityType Name="urunler">
+          <Key>
+            <PropertyRef Name="UrunId" />
+          </Key>
+          <Property Name="UrunId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullanıcıId" Type="Int32" />
+          <Property Name="Mama" Type="Int32" />
+          <Property Name="Oyuncak" Type="Int32" />
+          <Property Name="Aksesuar" Type="Int32" />
+          <Property Name="SiparisAdres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="kullanıcılar" Relationship="projeModel.FK_urunler_kullanıcılar" FromRole="urunler" ToRole="kullanıcılar" />
+        </EntityType>
+        <Association Name="FK_urunler_kullanıcılar">
+          <End Type="projeModel.kullanıcılar" Role="kullanıcılar" Multiplicity="0..1" />
+          <End Type="projeModel.urunler" Role="urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kullanıcılar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="urunler">
+              <PropertyRef Name="KullanıcıId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="projeModelStoreContainer" CdmEntityContainer="projeEntities">
+          <EntitySetMapping Name="kullanıcılar">
+            <EntityTypeMapping TypeName="projeModel.kullanıcılar">
+              <MappingFragment StoreEntitySet="kullanıcılar">
+                <ScalarProperty Name="cvv" ColumnName="cvv" />
+                <ScalarProperty Name="yıl" ColumnName="yıl" />
+                <ScalarProperty Name="ay" ColumnName="ay" />
+                <ScalarProperty Name="kartNo" ColumnName="kartNo" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="urunler">
+            <EntityTypeMapping TypeName="projeModel.urunler">
+              <MappingFragment StoreEntitySet="urunler">
+                <ScalarProperty Name="SiparisAdres" ColumnName="SiparisAdres" />
+                <ScalarProperty Name="Aksesuar" ColumnName="Aksesuar" />
+                <ScalarProperty Name="Oyuncak" ColumnName="Oyuncak" />
+                <ScalarProperty Name="Mama" ColumnName="Mama" />
+                <ScalarProperty Name="KullanıcıId" ColumnName="KullanıcıId" />
+                <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
